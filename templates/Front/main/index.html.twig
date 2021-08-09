@@ -1,0 +1,102 @@
+
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}Accueil > Tous les films{% endblock %}
+
+{% block body %}
+
+<h1>Tous les films</h1>
+
+<h2 id="header-margin">Retrouvez les films recensés sur Allociné, à voir ou à revoir, seul, en famille ou entre amis.</h2>
+
+<div class="row">
+
+    {# Liste des genres #}
+    <div class="col-2" id="genres">
+        <h3>Par genres</h3>
+        {% for genre in genres %}
+            <div>{{ genre.name }}</div>
+        {% endfor %}
+    </div>
+
+    {# Liste des films #}
+    <div class="col-10">
+
+        {% if app.request.query.get('search') is not null %}
+            <h3>Résultats de la recherche pour <i>"{{ app.request.query.get('search') }}"</i></h3>
+        {% endif %}
+
+        {% for movie in movies %}
+        {% include 'front/movie/_movie_main.html.twig' with { 'displaySummary': true } %}
+        {% else %}
+        <p>Aucun film trouvé.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% block body %}
+
+<h1>FRONT - Liste des films</h1> 
+
+<p><a href="{{ '#' }}" class="btn btn-primary" role="button">Lien vers la liste des acteurs !</a></p>  TODO 
+
+<hr>
+
+ https://getbootstrap.com/docs/5.0/content/tables/ 
+<table class="table table-hover table-striped">
+     En-têtes du tableau 
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre du film</th>
+            <th scope="col">Date de sortie</th>
+            <th scope="col">Temps en minutes</th>
+            <th scope="col">Affiche du film</th>
+            <th scope="col">Note du film</th>
+        </tr>
+    </thead>
+    <tbody>
+
+         On boucle sur les films
+        {% for movies in movies %}
+        <tr>
+            <th scope="row">{{ movies.id }}</th>   {# ? ID
+
+            <td><a href="{{ path('front_movie_read', {id: movies.id}) }}">{{ movies.title }}</a></td>   {# ? Titre 
+            
+            <td> {{ movies.releaseDate|date('d-m-Y') }}  </td> {# ? Date de sortie du film 
+
+            <td> {{ movies.duration }}  </td> {# ? Durée du film en minutes 
+
+            <td><img src="{{ movies.poster }}" alt="{{ movies.title }}" width="100" height="130" class="img-fluid" /></td> {# ? Affiche du film
+
+            <td> {{ movies.rating }}  </td> {# ? Notes du film 
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %} #}
